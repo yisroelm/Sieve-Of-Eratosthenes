@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author yisro
+ *
+ */
+module SieveOfEratosthenes {
+}

@@ -1,0 +1,49 @@
+<project name="SieveOfEratosthenes" default="build" basedir=".">
+
+   <property name="src.dir" value="src" />
+   <property name="build.dir" value="build" />
+   <property name="dist.dir" value="dist" />
+   <property name="test.dir" value="test" />
+
+   <target name="clean">
+       <delete dir="${build.dir}" />
+       <delete dir="${dist.dir}" />
+   </target>
+
+   <target name="compile" depends="clean">
+       <mkdir dir="${build.dir}" />
+       <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" />
+   </target>
+
+   <target name="jar" depends="compile">
+       <mkdir dir="${dist.dir}" />
+       <jar destfile="${dist.dir}/SieveOfEratosthenes.jar" basedir="${build.dir}">
+           <manifest>
+               <attribute name="Main-Class" value="net.codejava.SieveOfEratosthenes" />
+           </manifest>
+       </jar>
+   </target>
+
+   <target name="test" depends="compile">
+       <mkdir dir="${build.dir}" />
+       <javac srcdir="${test.dir}" destdir="${build.dir}" includeantruntime="false" />
+       <junit printsummary="on" fork="true" haltonfailure="false">
+           <classpath>
+               <pathelement path="${build.dir}" />
+           </classpath>
+           <formatter type="plain" usefile="false" />
+           <batchtest todir="${build.dir}">
+               <fileset dir="${test.dir}" includes="**/*Test.java" />
+           </batchtest>
+       </junit>
+   </target>
+
+   <target name="build" depends="jar">
+       <echo message="Build completed successfully!" />
+   </target>
+
+   <target name="clean-all" depends="clean">
+       <echo message="Workspace cleaned successfully!" />
+   </target>
+
+</project>
