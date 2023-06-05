@@ -40,7 +40,7 @@
 
    <target name="build" depends="jar">
        <echo message="Build completed successfully!" />
-       <echo message="Testing for Jenkins" />
+       <echo message="Testing for Jenkins M" />
    </target>
 
    <target name="clean-all" depends="clean">
