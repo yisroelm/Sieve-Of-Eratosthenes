@@ -38,7 +38,7 @@
        </junit>
    </target>
 
-   <target name="build" depends="jar">
+   <target name="build" depends="jr">
        <echo message="Build completed successfully!" />
        <echo message="Testing for Jenkins M" />
    </target>
