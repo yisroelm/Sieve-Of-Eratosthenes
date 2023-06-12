@@ -1,0 +1,32 @@
+# Stage 1: Build the Java application
+FROM ubuntu:latest AS build
+
+# Set the working directory
+WORKDIR /app
+
+# Update package lists and install OpenJDK 11
+RUN apt-get update && apt-get install -y openjdk-11-jdk
+
+# Copy the source code into the container
+COPY . /app
+
+# Compile the Java application
+RUN javac -d build src/module-info.java src/net/codejava/SieveOfEratosthenes.java
+
+# Run a test to ensure the build is successful
+RUN echo "100" > input.txt && java -cp build net.codejava.SieveOfEratosthenes < input.txt
+
+# Stage 2: Create the final runtime image
+FROM ubuntu:latest
+
+# Set the working directory
+WORKDIR /app
+
+# Update package lists and install OpenJDK 11
+RUN apt-get update && apt-get install -y openjdk-11-jdk
+
+# Copy the compiled classes from the build stage
+COPY --from=build /app/build /app/build
+
+# Set the entrypoint to run the Java program
+ENTRYPOINT ["java", "-cp", "build", "net.codejava.SieveOfEratosthenes"]
